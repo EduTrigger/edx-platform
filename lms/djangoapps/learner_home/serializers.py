@@ -10,6 +10,8 @@ from django.urls import reverse
 from django.utils import timezone
 from opaque_keys.edx.keys import CourseKey
 from rest_framework import serializers
+from openedx_filters.exceptions import OpenEdxFilterException
+from openedx_filters.learning.filters import CourseIsStartedCreationStarted
 
 from common.djangoapps.course_modes.models import CourseMode
 from openedx.features.course_experience import course_home_url
@@ -212,7 +214,16 @@ class EnrollmentSerializer(serializers.Serializer):
         resume_button_url = self.context.get("resume_course_urls", {}).get(
             enrollment.course_id
         )
-        return bool(resume_button_url)
+        has_started = bool(resume_button_url)
+        try:
+            # .. filter_implemented_name: CourseIsStartedCreationStarted
+            # .. filter_type: org.openedx.learning.course.is.started.creation.started.v1
+            course_key, has_started = CourseIsStartedCreationStarted().run_filter(
+                course_key=enrollment.course_id, is_started=has_started,
+            )  # course_id looks like 'course-v1:edX+DemoX+Demo_Course'
+        except OpenEdxFilterException as exc:
+            pass
+        return has_started
 
     def get_isVerified(self, enrollment):
         return enrollment.is_verified_enrollment()
