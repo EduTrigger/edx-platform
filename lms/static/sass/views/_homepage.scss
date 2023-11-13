@@ -139,8 +139,7 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
 
         .course-date {
           @include line-height(14);
-
-          // padding: (3*$baseline/10) 0;
+          padding-left: ($baseline*1.5);
           display: inline;
           font-size: ($baseline*0.5);
           color: #777986;
@@ -150,7 +149,6 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
           @include line-height(14);
 
           padding: (3*$baseline/10) ($baseline*0.65) (3*$baseline/10) 0;
-          // display: inline-block;
           font-size: ($baseline*0.5);
           color: #777986;
         }
@@ -163,10 +161,16 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
         .date-clock {
           color: #EB999A;
           padding-left: ($baseline*0.65);
+          position: absolute;
+          bottom: ($baseline*0.45);
         }
 
         .instructor-icon {
           color: #EB999A;
+          position: absolute;
+          bottom: ($baseline*0.45);
+          margin-right: ($baseline*2);
+          right: ($baseline*0.9);
         }
       }
 
