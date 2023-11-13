@@ -28,7 +28,7 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
       @include transition(all $tmg-f3 linear 0s);
 
       position: relative;
-      border-bottom: 3px solid $action-primary-bg;
+      // border-bottom: 3px solid $action-primary-bg;
       box-shadow: 0 1px 10px 0 $black-t0, inset 0 0 0 1px $white-t3;
       background: $body-bg;
       width: 100%;
@@ -81,7 +81,7 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
       }
 
       .course-info {
-        height: $course-info-height;
+        height: ($baseline*5.5);
         font-family: $font-family-sans-serif;
 
         h2 {
@@ -89,30 +89,29 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
         }
 
         .course-organization,
-        .course-code,
-        .course-date {
+        .course-code {
           @extend %t-icon6;
 
-          color: $gray-d2;
-        }
-
-        .course-organization,
-        .course-code,
-        .course-title {
-          display: block;
+          color: #e85351;
+          display: inline;
           text-transform: none;
         }
 
         .course-organization {
           @include line-height(11);
 
-          padding: ($baseline/2) ($baseline*0.75) ($baseline/10) ($baseline*0.75);
+          padding: 0 ($baseline*0.4) 0 ($baseline*0.4);
+          background-color: #FEEBEE;
+          margin: ($baseline*0.75);
+          font-size: ($baseline*0.55);
         }
 
         .course-code {
           @include line-height(16);
 
-          padding: 0 ($baseline*0.75);
+          padding: ($baseline*0.1) ($baseline*0.75);
+          float: right;
+          font-size: ($baseline*0.5);
         }
 
         .course-title {
@@ -120,16 +119,54 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
 
           @extend %t-icon4;
 
-          margin: ($baseline*0.25) 0 ($baseline*1.75) 0;
+          margin: ($baseline*0.75) 0 ($baseline*0.75) 0;
+          text-align: left;
           padding: 0 ($baseline*0.75);
-          height: $course-title-height;
-          color: $link-color;
+          height: ($baseline*1.3);
+          color: black;
+          display: block;
+          text-transform: none;
+          font-size: 75%;
+        }
+
+        .date_instructor_container {
+          border: 1px solid #E9EAF0;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          padding: ($baseline*0.3) 0;
         }
 
         .course-date {
           @include line-height(14);
 
-          padding: ($baseline/10) ($baseline*0.75);
+          // padding: (3*$baseline/10) 0;
+          display: inline;
+          font-size: ($baseline*0.5);
+          color: #777986;
+        }
+
+        .course-instructor {
+          @include line-height(14);
+
+          padding: (3*$baseline/10) ($baseline*0.65) (3*$baseline/10) 0;
+          // display: inline-block;
+          font-size: ($baseline*0.5);
+          color: #777986;
+        }
+
+        .instructor-wrapper {
+          float: right;
+          display: inline;
+        }
+
+        .date-clock {
+          color: #EB999A;
+          padding-left: ($baseline*0.65);
+        }
+
+        .instructor-icon {
+          color: #EB999A;
         }
       }
 
