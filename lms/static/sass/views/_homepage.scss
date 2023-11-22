@@ -3,6 +3,13 @@
 // TO-DO: combine this with _home.scss as a cleanup story
 
 $learn-more-horizontal-position: calc(50% - 100px); // calculate the left position for "LEARN MORE" content
+$height-course-info: ($baseline*5.5);
+$padding-course-org: ($baseline*0.4);
+$font-course-org: ($baseline*0.55);
+$margin-course-title: ($baseline*0.75);
+$bottom-course: ($baseline*0.45);
+$horizontal-padding-course: ($baseline*0.65);
+$font-course-date: ($baseline*0.5);
 
 .courses-container {
   @include outer-container;
@@ -28,7 +35,6 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
       @include transition(all $tmg-f3 linear 0s);
 
       position: relative;
-      // border-bottom: 3px solid $action-primary-bg;
       box-shadow: 0 1px 10px 0 $black-t0, inset 0 0 0 1px $white-t3;
       background: $body-bg;
       width: 100%;
@@ -81,7 +87,7 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
       }
 
       .course-info {
-        height: ($baseline*5.5);
+        height: $height-course-info;
         font-family: $font-family-sans-serif;
 
         h2 {
@@ -100,16 +106,16 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
         .course-organization {
           @include line-height(11);
 
-          padding: 0 ($baseline*0.4) 0 ($baseline*0.4);
+          padding: 0 $padding-course-org 0 $padding-course-org;
           background-color: #FEEBEE;
-          margin: ($baseline*0.75);
-          font-size: ($baseline*0.55);
+          margin: $margin-course-title;
+          font-size: $font-course-org;
         }
 
         .course-code {
           @include line-height(16);
 
-          padding: ($baseline*0.1) ($baseline*0.75);
+          padding: ($baseline*0.1) $margin-course-title;
           float: right;
           font-size: ($baseline*0.5);
         }
@@ -119,9 +125,9 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
 
           @extend %t-icon4;
 
-          margin: ($baseline*0.75) 0 ($baseline*0.75) 0;
+          margin: $margin-course-title 0 $margin-course-title 0;
           text-align: left;
-          padding: 0 ($baseline*0.75);
+          padding: 0 $margin-course-title;
           height: ($baseline*1.3);
           color: black;
           display: block;
@@ -141,15 +147,15 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
           @include line-height(14);
           padding-left: ($baseline*1.5);
           display: inline;
-          font-size: ($baseline*0.5);
+          font-size: $font-course-date;
           color: #777986;
         }
 
         .course-instructor {
           @include line-height(14);
 
-          padding: (3*$baseline/10) ($baseline*0.65) (3*$baseline/10) 0;
-          font-size: ($baseline*0.5);
+          padding: (3*$baseline/10) $horizontal-padding-course (3*$baseline/10) 0;
+          font-size: $font-course-date;
           color: #777986;
         }
 
@@ -160,17 +166,17 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
 
         .date-clock {
           color: #EB999A;
-          padding-left: ($baseline*0.65);
+          padding-left: $horizontal-padding-course;
           position: absolute;
-          bottom: ($baseline*0.45);
+          bottom: $bottom-course;
         }
 
         .instructor-icon {
           color: #EB999A;
           position: absolute;
-          bottom: ($baseline*0.45);
+          bottom: $bottom-course;
           margin-right: ($baseline*2);
-          right: ($baseline*0.9);
+          right: ($baseline*1.1);
         }
       }
 
