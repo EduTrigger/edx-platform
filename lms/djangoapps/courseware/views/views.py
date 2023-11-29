@@ -2130,7 +2130,7 @@ def financial_assistance_form(request, course_id=None):
                '$85,000 - $100,000', 'More than $100,000']
 
     annual_incomes = [
-        {'name': _(income), 'value': income} for income in incomes
+        {"name": _(income), 'value': income} for income in incomes
         # lint-amnesty, pylint: disable=translation-of-non-string
     ]
     if course_id and _use_new_financial_assistance_flow(course_id):
