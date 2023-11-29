@@ -2,7 +2,6 @@
 Courseware views functions
 """
 
-
 import json
 import logging
 import urllib
@@ -142,7 +141,6 @@ from ..toggles import COURSEWARE_OPTIMIZED_RENDER_XBLOCK
 
 log = logging.getLogger("edx.courseware")
 
-
 # Only display the requirements on learner dashboard for
 # credit and verified modes.
 REQUIREMENTS_DISPLAY_MODES = CourseMode.CREDIT_MODES + [CourseMode.VERIFIED]
@@ -279,7 +277,7 @@ def courses(request):
     courses_list = get_courses(request.user)
 
     if configuration_helpers.get_value("ENABLE_COURSE_SORTING_BY_START_DATE",
-                                        settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
+                                       settings.FEATURES["ENABLE_COURSE_SORTING_BY_START_DATE"]):
         courses_list = sort_by_start_date(courses_list)
     else:
         courses_list = sort_by_announcement(courses_list)
@@ -441,6 +439,7 @@ class StaticCourseTabView(EdxFragmentView):
     """
     View that displays a static course tab with a given name.
     """
+
     @method_decorator(ensure_csrf_cookie)
     @method_decorator(ensure_valid_course_key)
     def get(self, request, course_id, tab_slug, **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
@@ -461,13 +460,15 @@ class StaticCourseTabView(EdxFragmentView):
 
         return super().get(request, course=course, tab=tab, **kwargs)
 
-    def render_to_fragment(self, request, course=None, tab=None, **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
+    def render_to_fragment(self, request, course=None, tab=None,
+                           **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
         """
         Renders the static tab to a fragment.
         """
         return get_static_tab_fragment(request, course, tab)
 
-    def render_standalone_response(self, request, fragment, course=None, tab=None, **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
+    def render_standalone_response(self, request, fragment, course=None, tab=None,
+                                   **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
         """
         Renders this static tab's fragment to HTML for a standalone page.
         """
@@ -484,6 +485,7 @@ class CourseTabView(EdxFragmentView):
     """
     View that displays a course tab page.
     """
+
     @method_decorator(ensure_csrf_cookie)
     @method_decorator(ensure_valid_course_key)
     @method_decorator(data_sharing_consent_required)
@@ -588,7 +590,9 @@ class CourseTabView(EdxFragmentView):
         """
         Handle exceptions raised when rendering a view.
         """
-        if isinstance(exception, Redirect) or isinstance(exception, Http404):  # lint-amnesty, pylint: disable=consider-merging-isinstance
+        if isinstance(exception, Redirect) or isinstance(exception,
+                                                         Http404):  # lint-amnesty, pylint:
+            # disable=consider-merging-isinstance
             raise  # lint-amnesty, pylint: disable=misplaced-bare-raise
         if settings.DEBUG:
             raise  # lint-amnesty, pylint: disable=misplaced-bare-raise
@@ -654,14 +658,16 @@ class CourseTabView(EdxFragmentView):
         )
         return context
 
-    def render_to_fragment(self, request, course=None, page_context=None, **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
+    def render_to_fragment(self, request, course=None, page_context=None,
+                           **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
         """
         Renders the course tab to a fragment.
         """
         tab = page_context['tab']
         return tab.render_to_fragment(request, course, **kwargs)
 
-    def render_standalone_response(self, request, fragment, course=None, tab=None, page_context=None, **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
+    def render_standalone_response(self, request, fragment, course=None, tab=None, page_context=None,
+                                   **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
         """
         Renders this course tab's fragment to HTML for a standalone page.
         """
@@ -1031,7 +1037,9 @@ def _progress(request, course_key, student_id):
     return response
 
 
-def _downloadable_certificate_message(course, cert_downloadable_status):  # lint-amnesty, pylint: disable=missing-function-docstring
+def _downloadable_certificate_message(course,
+                                      cert_downloadable_status):  # lint-amnesty, pylint:
+    # disable=missing-function-docstring
     if certs_api.has_html_certificates_enabled(course):
         if certs_api.get_active_web_certificate(course) is not None:
             return _downloadable_cert_data(
@@ -1169,7 +1177,7 @@ def _course_home_redirect_enabled():
     Returns: boolean True or False
     """
     if configuration_helpers.get_value(
-            'ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)
+        'ENABLE_MKTG_SITE', settings.FEATURES.get('ENABLE_MKTG_SITE', False)
     ) and configuration_helpers.get_value(
         'ENABLE_COURSE_HOME_REDIRECT', settings.FEATURES.get('ENABLE_COURSE_HOME_REDIRECT', True)
     ):
@@ -1338,7 +1346,9 @@ def get_course_lti_endpoints(request, course_id):
         for block in lti_noauth_blocks
     ]
 
-    return HttpResponse(json.dumps(endpoints), content_type='application/json')  # lint-amnesty, pylint: disable=http-response-with-content-type-json, http-response-with-json-dumps
+    return HttpResponse(json.dumps(endpoints),
+                        content_type='application/json')  # lint-amnesty, pylint:
+    # disable=http-response-with-content-type-json, http-response-with-json-dumps
 
 
 @login_required
@@ -1536,7 +1546,8 @@ def render_xblock(request, usage_key_string, check_if_enrolled=True):
     set_custom_attribute('block_type', usage_key.block_type)
 
     requested_view = request.GET.get('view', 'student_view')
-    if requested_view != 'student_view' and requested_view != 'public_view':  # lint-amnesty, pylint: disable=consider-using-in
+    if requested_view != 'student_view' and requested_view != 'public_view':  # lint-amnesty, pylint:
+        # disable=consider-using-in
         return HttpResponseBadRequest(
             f"Rendering of the xblock view '{bleach.clean(requested_view, strip=True)}' is not supported."
         )
@@ -1697,6 +1708,7 @@ class XBlockContentInspector:
     this class has the job of detecting certain patterns in XBlock content that
     would imply these dependencies, so we know when to include them or not.
     """
+
     def __init__(self, block, fragment):
         self.block = block
         self.fragment = fragment
@@ -1711,14 +1723,14 @@ class XBlockContentInspector:
         """
         # The following pairs are used to mark Mathjax syntax in XBlocks. There
         # are other options for the wiki, but we don't worry about those here.
-        MATHJAX_TAG_PAIRS = [
+        mathjax_tag_pairs = [
             (r"\(", r"\)"),
             (r"\[", r"\]"),
             ("[mathjaxinline]", "[/mathjaxinline]"),
             ("[mathjax]", "[/mathjax]"),
         ]
         content = self.fragment.body_html()
-        for (start_tag, end_tag) in MATHJAX_TAG_PAIRS:
+        for (start_tag, end_tag) in mathjax_tag_pairs:
             if start_tag in content and end_tag in content:
                 return True
 
@@ -1929,6 +1941,7 @@ class PublicVideoXBlockView(BasePublicVideoXBlockView):
 @method_decorator(transaction.non_atomic_requests, name='dispatch')
 class PublicVideoXBlockEmbedView(BasePublicVideoXBlockView):
     """ View for viewing public videos embedded within Twitter or other social media """
+
     def get_template_and_context(self, course, video_block):
         """ Render the embed view """
         fragment = video_block.render('public_view', context={
@@ -1945,7 +1958,8 @@ class PublicVideoXBlockEmbedView(BasePublicVideoXBlockView):
 # string identifying the name of this installation, such as "edX".
 FINANCIAL_ASSISTANCE_HEADER = _(
     '{platform_name} now offers financial assistance for learners who want to earn Verified Certificates but'
-    ' who may not be able to pay the Verified Certificate fee. Eligible learners may receive up to 90{percent_sign} off'  # lint-amnesty, pylint: disable=line-too-long
+    ' who may not be able to pay the Verified Certificate fee. Eligible learners may receive up to 90{percent_sign} off'
+    # lint-amnesty, pylint: disable=line-too-long
     ' the Verified Certificate fee for a course.\nTo apply for financial assistance, enroll in the'
     ' audit track for a course that offers Verified Certificates, and then complete this application.'
     ' Note that you must complete a separate application for each course you take.\n We plan to use this'
@@ -1955,16 +1969,22 @@ FINANCIAL_ASSISTANCE_HEADER = _(
 
 
 def _get_fa_header(header):
-    return header.\
+    return header. \
         format(percent_sign="%",
                platform_name=configuration_helpers.get_value('PLATFORM_NAME', settings.PLATFORM_NAME)).split('\n')
 
 
 FA_INCOME_LABEL = gettext_noop('Annual Household Income')
-FA_REASON_FOR_APPLYING_LABEL = gettext_noop('Tell us about your current financial situation. Why do you need assistance?')  # lint-amnesty, pylint: disable=line-too-long
-FA_GOALS_LABEL = gettext_noop('Tell us about your learning or professional goals. How will a Verified Certificate in this course help you achieve these goals?')  # lint-amnesty, pylint: disable=line-too-long
+FA_REASON_FOR_APPLYING_LABEL = gettext_noop(
+    'Tell us about your current financial situation. Why do you need assistance?')  # lint-amnesty, pylint:
+# disable=line-too-long
+FA_GOALS_LABEL = gettext_noop(
+    'Tell us about your learning or professional goals. How will a Verified Certificate in this course help you '
+    'achieve these goals?')  # lint-amnesty, pylint: disable=line-too-long
 
-FA_EFFORT_LABEL = gettext_noop('Tell us about your plans for this course. What steps will you take to help you complete the course work and receive a certificate?')  # lint-amnesty, pylint: disable=line-too-long
+FA_EFFORT_LABEL = gettext_noop(
+    'Tell us about your plans for this course. What steps will you take to help you complete the course work and '
+    'receive a certificate?')  # lint-amnesty, pylint: disable=line-too-long
 
 FA_SHORT_ANSWER_INSTRUCTIONS = _('Use between 1250 and 2500 characters or so in your response.')
 
@@ -2110,7 +2130,8 @@ def financial_assistance_form(request, course_id=None):
                '$85,000 - $100,000', 'More than $100,000']
 
     annual_incomes = [
-        {'name': _(income), 'value': income} for income in incomes  # lint-amnesty, pylint: disable=translation-of-non-string
+        {'name': _(income), 'value': income} for income in incomes
+        # lint-amnesty, pylint: disable=translation-of-non-string
     ]
     if course_id and _use_new_financial_assistance_flow(course_id):
         submit_url = 'submit_financial_assistance_request_v2'
@@ -2219,12 +2240,12 @@ def get_financial_aid_courses(user, course_id=None):
     for enrollment in CourseEnrollment.enrollments_for_user(user).order_by('-created'):
 
         if enrollment.mode != CourseMode.VERIFIED and \
-                enrollment.course_overview and \
-                enrollment.course_overview.eligible_for_financial_aid and \
-                CourseMode.objects.filter(
-                    Q(_expiration_datetime__isnull=True) | Q(_expiration_datetime__gt=datetime.now(UTC)),
-                    course_id=enrollment.course_id,
-                    mode_slug=CourseMode.VERIFIED).exists():
+            enrollment.course_overview and \
+            enrollment.course_overview.eligible_for_financial_aid and \
+            CourseMode.objects.filter(
+                Q(_expiration_datetime__isnull=True) | Q(_expiration_datetime__gt=datetime.now(UTC)),
+                course_id=enrollment.course_id,
+                mode_slug=CourseMode.VERIFIED).exists():
             # This is a workaround to set course_id before disabling the field in case of new financial assistance flow.
             if str(enrollment.course_overview) == course_id:
                 financial_aid_courses = [{
