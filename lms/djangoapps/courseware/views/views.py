@@ -460,15 +460,15 @@ class StaticCourseTabView(EdxFragmentView):
 
         return super().get(request, course=course, tab=tab, **kwargs)
 
-    def render_to_fragment(self, request, course=None, tab=None,
-                           **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
+    def render_to_fragment(self, request, course=None, tab=None, **kwargs):
+        # lint-amnesty, pylint: disable=arguments-differ
         """
         Renders the static tab to a fragment.
         """
         return get_static_tab_fragment(request, course, tab)
 
-    def render_standalone_response(self, request, fragment, course=None, tab=None,
-                                   **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
+    def render_standalone_response(self, request, fragment, course=None, tab=None, **kwargs):
+        # lint-amnesty, pylint: disable=arguments-differ
         """
         Renders this static tab's fragment to HTML for a standalone page.
         """
@@ -590,8 +590,8 @@ class CourseTabView(EdxFragmentView):
         """
         Handle exceptions raised when rendering a view.
         """
-        if isinstance(exception, Redirect) or isinstance(exception,
-                                                         Http404):  # lint-amnesty, pylint:
+        if isinstance(exception, Redirect) or isinstance(exception, Http404):
+            # lint-amnesty, pylint:
             # disable=consider-merging-isinstance
             raise  # lint-amnesty, pylint: disable=misplaced-bare-raise
         if settings.DEBUG:
@@ -658,16 +658,16 @@ class CourseTabView(EdxFragmentView):
         )
         return context
 
-    def render_to_fragment(self, request, course=None, page_context=None,
-                           **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
+    def render_to_fragment(self, request, course=None, page_context=None, **kwargs):
+        # lint-amnesty, pylint: disable=arguments-differ
         """
         Renders the course tab to a fragment.
         """
         tab = page_context['tab']
         return tab.render_to_fragment(request, course, **kwargs)
 
-    def render_standalone_response(self, request, fragment, course=None, tab=None, page_context=None,
-                                   **kwargs):  # lint-amnesty, pylint: disable=arguments-differ
+    def render_standalone_response(self, request, fragment, course=None, tab=None, page_context=None, **kwargs):
+        # lint-amnesty, pylint: disable=arguments-differ
         """
         Renders this course tab's fragment to HTML for a standalone page.
         """
@@ -1037,8 +1037,14 @@ def _progress(request, course_key, student_id):
     return response
 
 
-def _downloadable_certificate_message(course,
-                                      cert_downloadable_status):  # lint-amnesty, pylint:
+def _downloadable_certificate_message(course, cert_downloadable_status):
+    # lint-amnesty, pylint:
+    """
+
+    @param course:
+    @param cert_downloadable_status:
+    @return:
+    """
     # disable=missing-function-docstring
     if certs_api.has_html_certificates_enabled(course):
         if certs_api.get_active_web_certificate(course) is not None:
@@ -1346,8 +1352,8 @@ def get_course_lti_endpoints(request, course_id):
         for block in lti_noauth_blocks
     ]
 
-    return HttpResponse(json.dumps(endpoints),
-                        content_type='application/json')  # lint-amnesty, pylint:
+    return HttpResponse(json.dumps(endpoints), content_type='application/json')
+    # lint-amnesty, pylint:
     # disable=http-response-with-content-type-json, http-response-with-json-dumps
 
 
@@ -1975,16 +1981,18 @@ def _get_fa_header(header):
 
 
 FA_INCOME_LABEL = gettext_noop('Annual Household Income')
-FA_REASON_FOR_APPLYING_LABEL = gettext_noop(
-    'Tell us about your current financial situation. Why do you need assistance?')  # lint-amnesty, pylint:
+FA_REASON_FOR_APPLYING_LABEL = gettext_noop('Tell us about your current financial situation. Why do you need assistance?')
+# lint-amnesty, pylint:
 # disable=line-too-long
 FA_GOALS_LABEL = gettext_noop(
     'Tell us about your learning or professional goals. How will a Verified Certificate in this course help you '
-    'achieve these goals?')  # lint-amnesty, pylint: disable=line-too-long
+    'achieve these goals?')
+# lint-amnesty, pylint: disable=line-too-long
 
 FA_EFFORT_LABEL = gettext_noop(
     'Tell us about your plans for this course. What steps will you take to help you complete the course work and '
-    'receive a certificate?')  # lint-amnesty, pylint: disable=line-too-long
+    'receive a certificate?')
+# lint-amnesty, pylint: disable=line-too-long
 
 FA_SHORT_ANSWER_INSTRUCTIONS = _('Use between 1250 and 2500 characters or so in your response.')
 
