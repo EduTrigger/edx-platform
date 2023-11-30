@@ -96,6 +96,14 @@
 
       % endif
 
+      % if course_discovery_enabled:
+        <aside aria-label="${_('Refine Your Search')}" class="search-facets phone-menu">
+          <h2 class="header-search-facets">${_('Refine Your Search')}</h2>
+          <section class="search-facets-lists">
+          </section>
+        </aside>
+        % endif
+
       <!-- Including the 'Inter' font -->
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.3.67/css/materialdesignicons.min.css" rel="stylesheet">
@@ -115,18 +123,7 @@
 
         }
 
-        .find-courses .wrapper-search-context {
-          width: 100%;
-          margin-left: auto;
-          margin-right: auto;
-        }
 
-        .courses-container {
-          max-width: 70%;
-          height: auto;
-          padding: 0px, 0px, 0px, 0px;
-
-        }
 
         .search-results-count {
           height: 22px;
@@ -302,27 +299,7 @@
           /* Vertically align the items in center */
         }
 
-        .courses-list {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: flex-start;
-        }
 
-        .courses-listing-item {
-          flex: 0 1 25%;
-          /* flex-grow: 0, flex-shrink: 1, flex-basis: 25% */
-          box-sizing: border-box;
-          /* Includes padding and border in the element's total width */
-          /* Add margin or padding as needed, keeping in mind the total width */
-        }
-
-        .find-courses .courses-container .courses:not(.no-course-discovery),
-        .university-profile .courses-container .courses:not(.no-course-discovery) {
-          float: left;
-          display: block;
-          margin-right: 2.35765%;
-          width: 100%;
-        }
       </style>
 
       <div class="courses${'' if course_discovery_enabled else ' no-course-discovery'}" role="region"
