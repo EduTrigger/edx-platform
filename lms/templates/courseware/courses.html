@@ -96,14 +96,6 @@
 
       % endif
 
-      % if course_discovery_enabled:
-        <aside aria-label="${_('Refine Your Search')}" class="search-facets phone-menu">
-          <h2 class="header-search-facets">${_('Refine Your Search')}</h2>
-          <section class="search-facets-lists">
-          </section>
-        </aside>
-        % endif
-
       <!-- Including the 'Inter' font -->
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
       <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.3.67/css/materialdesignicons.min.css" rel="stylesheet">
@@ -312,6 +304,14 @@
           %endfor
         </ul>
       </div>
+
+      % if course_discovery_enabled:
+        <aside aria-label="${_('Refine Your Search')}" class="search-facets phone-menu">
+          <h2 class="header-search-facets">${_('Refine Your Search')}</h2>
+          <section class="search-facets-lists">
+          </section>
+        </aside>
+        % endif
 
       <script>
         document.addEventListener('DOMContentLoaded', function () {
