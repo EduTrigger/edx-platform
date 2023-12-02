@@ -38,7 +38,7 @@
   <section class="find-courses">
     <section class="courses-container">
       % if course_discovery_enabled:
-      <div class="container" style="padding-bottom: 0px;">
+      <div class="container">
         <div id="discovery-form" role="search" aria-label="course" class="wrapper-search-context">
           <div class="search-bar-contents">
             <div class="filter-search-container">
@@ -86,6 +86,8 @@
 
           </div>
           <div id="discovery-message" class="search-status-label" style="display: none;"></div>
+          <div id="filter-bar" class="filters hide-phone is-collapsed" style="display: none;"></div>
+
 
           <div class="search-results-count" style="display: none;">
             <span id="results-count"></span> find for "<span id="search-term"></span>"
@@ -115,7 +117,10 @@
 
         }
 
-
+        .find-courses .wrapper-search-context {
+          max-width: 100%;
+          margin-left: 10%;
+        }
 
         .search-results-count {
           height: 22px;
@@ -169,6 +174,7 @@
           justify-content: space-between;
           align-items: left;
           width: 100%;
+          padding-bottom:0px;
         }
 
         .filter-search-container {
@@ -294,8 +300,7 @@
 
       </style>
 
-      <div class="courses${'' if course_discovery_enabled else ' no-course-discovery'}" role="region"
-        aria-label="${_('List of Courses')}" style="margin-right: 0px;">
+      <div class="courses${'' if course_discovery_enabled else ' no-course-discovery'}" role="region" aria-label="${_('List of Courses')}">
         <ul class="courses-listing courses-list">
           %for course in courses:
           <li class="courses-listing-item">
@@ -325,15 +330,7 @@
             var searchTerm = document.getElementById('discovery-input').value.trim().toLowerCase();
             var hasResults = false;
 
-            courseItems.forEach(function (course) {
-              var courseTitle = course.textContent.toLowerCase();
-              if (courseTitle.includes(searchTerm) || searchTerm === '') {
-                course.style.display = '';
-                hasResults = true;
-              } else {
-                course.style.display = 'none';
-              }
-            });
+           
 
             // Update the results count display
             var resultsCountContainer = document.querySelector('.search-results-count');
