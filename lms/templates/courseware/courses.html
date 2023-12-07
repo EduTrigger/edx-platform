@@ -329,32 +329,37 @@
           var searchForm = document.getElementById('discovery-form');
       
           function updateSearchResultsCount(currentMessage, searchTerm) {
-              var message;
-      
-              if (searchTerm === '') {
-                  // Use textContent to safely set the text
-                  message = currentMessage;
-              } else {
-                  // Sanitize and escape user input
-                  searchTerm = encodeHTML(searchTerm);
-      
-                  var numberOfCourses = currentMessage.includes("any") ? 0 : parseInt(currentMessage.match(/\d+/)[0]);
-                  var courseWord = numberOfCourses === 1 ? "course" : "courses";
-                  message = numberOfCourses + " " + courseWord + " found for \"" + searchTerm + "\"";
-              }
-      
-              var resultsContainer = document.getElementById('search-results-container');
-              var existingElement = resultsContainer.querySelector('.search-results-count');
-      
-              if (existingElement) {
-                  existingElement.textContent = message; // Use textContent for security
-              } else {
-                  var newElement = document.createElement('div');
-                  newElement.className = 'search-results-count';
-                  newElement.textContent = message; // Use textContent for security
-                  resultsContainer.appendChild(newElement);
-              }
-          }
+            var resultsContainer = document.getElementById('search-results-container');
+            var existingElement = resultsContainer.querySelector('.search-results-count');
+        
+            // Create a new element or clear the existing one
+            var messageElement = existingElement || document.createElement('div');
+            messageElement.className = 'search-results-count';
+            messageElement.textContent = ''; // Clear any existing content
+        
+            if (searchTerm === '') {
+                messageElement.textContent = currentMessage;
+            } else {
+                var numberOfCourses = currentMessage.includes("any") ? 0 : parseInt(currentMessage.match(/\d+/)[0]);
+                var courseWord = numberOfCourses === 1 ? "course" : "courses";
+        
+                // Create and append the bold element for the number
+                var boldElement = document.createElement('b');
+                boldElement.textContent = numberOfCourses;
+                messageElement.appendChild(boldElement);
+        
+                // Append the rest of the message
+                messageElement.appendChild(document.createTextNode(" " + courseWord + " found for \"" + encodeHTML(searchTerm) + "\""));
+            }
+        
+            // Append the new element if it wasn't already in the DOM
+            if (!existingElement) {
+                resultsContainer.appendChild(messageElement);
+            }
+        }
+        
+        // Continue with the rest of your script...
+        
       
           searchForm.addEventListener('submit', function (event) {
               event.preventDefault();
