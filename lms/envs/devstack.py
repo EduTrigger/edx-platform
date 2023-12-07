@@ -198,11 +198,16 @@ COURSE_DISCOVERY_MEANINGS = {
     'language': LANGUAGE_MAP,
 }
 
-FEATURES['ENABLE_COURSE_DISCOVERY'] = False
+FEATURES['ENABLE_COURSE_DISCOVERY'] = True
 # Setting for overriding default filtering facets for Course discovery
 # COURSE_DISCOVERY_FILTERS = ["org", "language", "modes"]
 FEATURES['COURSES_ARE_BROWSEABLE'] = True
 HOMEPAGE_COURSE_MAX = 9
+
+FEATURES['ENABLE_FILTER'] = True
+# Toggle for the "filter" feature of the search bar
+FEATURES['ENABLE_SORTBY'] = False
+# Toggle for the "sort by" feature of the search bar
 
 # Software secure fake page feature flag
 FEATURES['ENABLE_SOFTWARE_SECURE_FAKE'] = True
