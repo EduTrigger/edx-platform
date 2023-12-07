@@ -329,29 +329,30 @@
           var searchForm = document.getElementById('discovery-form');
       
           function updateSearchResultsCount(currentMessage, searchTerm) {
-            // ...
-        
-            var resultsContainer = document.getElementById('search-results-container');
-            var existingElement = resultsContainer.querySelector('.search-results-count');
-        
-            if (!existingElement) {
-                existingElement = document.createElement('div');
-                existingElement.className = 'search-results-count';
-                resultsContainer.appendChild(existingElement);
-            }
-        
-            // Clear existing content
-            existingElement.innerHTML = '';
-        
-            // Create and append the bold element for the number of courses
-            var boldElement = document.createElement('b');
-            boldElement.textContent = numberOfCourses;
-            existingElement.appendChild(boldElement);
-        
-            // Append the rest of the text
-            existingElement.appendChild(document.createTextNode(" " + courseWord + " found for \"" + escapeHtml(searchTerm) + "\""));
-        }
-        
+              var message;
+      
+              if (searchTerm === '') {
+                  // If no search term is entered, use the current discovery message
+                  message = currentMessage;
+              } else {
+                  // If a search term is entered, format the message
+                  var numberOfCourses = currentMessage.includes("any") ? 0 : parseInt(currentMessage.match(/\d+/)[0]);
+                  var courseWord = numberOfCourses === 1 ? "course" : "courses"; // Singular or plural
+                  message = "<b>" + numberOfCourses + "</b> " + courseWord + " find for \"" + searchTerm + "\"";
+              }
+      
+              var resultsContainer = document.getElementById('search-results-container');
+              var existingElement = resultsContainer.querySelector('.search-results-count');
+      
+              if (existingElement) {
+                  existingElement.innerHTML = message; // Use innerHTML to interpret HTML tags
+              } else {
+                  var newElement = document.createElement('div');
+                  newElement.className = 'search-results-count';
+                  newElement.innerHTML = message; // Use innerHTML to interpret HTML tags
+                  resultsContainer.appendChild(newElement);
+              }
+          }
       
           searchForm.addEventListener('submit', function (event) {
               event.preventDefault();
