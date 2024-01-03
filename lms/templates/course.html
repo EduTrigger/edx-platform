@@ -20,17 +20,26 @@ from six import text_type
         <span class="course-code">${course.display_number_with_default}</span>
         <span class="course-title">${course.display_name_with_default}</span>
       </h2>
-      <%
-      if course.start is not None:
-          course_date_string = course.start.strftime('%Y-%m-%dT%H:%M:%S%z')
-      else:
-          course_date_string = ''
-      %>
-      % if course.advertised_start is not None:
-          <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
-      % else:
-          <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-language="${LANGUAGE_CODE}" data-string="${_("Starts: {date}")}"></div>
-      % endif
+      <div class="date_instructor_container">
+        <span class="mdi mdi-clock-outline date-clock"></span>
+        <%
+        if course.start is not None:
+            course_date_string = course.start.strftime('%Y-%m-%dT%H:%M:%S%z')
+        else:
+            course_date_string = 'end_date_unknown'
+        %>
+        % if course.advertised_start is not None:
+            <div class="course-date" aria-hidden="true">${_("Starts")}: ${course.advertised_start}</div>
+        % else:
+            <div class="course-date localized_datetime" aria-hidden="true" data-format="shortDate" data-datetime="${course_date_string}" data-language="${LANGUAGE_CODE}" data-string="${_("Started - {date}")}"></div>
+        % endif
+        <div class="instructor-wrapper">
+          <span class="mdi mdi-account-outline instructor-icon"></span>
+          <span class="course-instructor">instructor</span>
+        </div>
+        
+      </div>
+      
     </div>
     <div class="sr">
       <ul>
