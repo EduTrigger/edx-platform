@@ -678,6 +678,12 @@ FEATURES = {
 
     # Teams feature
     'ENABLE_TEAMS': True,
+    
+    # Filter feature of the filter bar
+    'ENABLE_FILTER': False,
+
+    # Sort by feature of the filter bar
+    'ENABLE_SORTBY': False,
 
     # Show video bumper in LMS
     'ENABLE_VIDEO_BUMPER': False,
