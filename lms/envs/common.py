@@ -678,7 +678,7 @@ FEATURES = {
 
     # Teams feature
     'ENABLE_TEAMS': True,
-    
+
     # Filter feature of the filter bar
     'ENABLE_FILTER': False,
 
